@@ -15,3 +15,14 @@ resource "aws_apigatewayv2_vpc_link" "vpclink" {
     Environment = "kcd-svc-kdyoo"
   }
 }
+
+resource "aws_apigatewayv2_api" "apigw" {
+  name          = "kcd-svc-kdyoo-http-api"
+  protocol_type = "HTTP"
+}
+
+resource "aws_apigatewayv2_stage" "stage" {
+  api_id      = aws_apigatewayv2_api.apigw.id
+  name        = "$default"
+  auto_deploy = true
+}
